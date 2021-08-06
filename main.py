@@ -1,6 +1,9 @@
+import json, os
 from selenium import webdriver
 PATH = "C:\Program Files\chromedriver.exe"
-driver = webdriver.Chrome(PATH)
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+driver = webdriver.Chrome(PATH, options=options)
 
 # Location of birth
 lat_hour = 41
@@ -16,12 +19,12 @@ our_hour = 23
 our_minute = 52
 
 # Starts from here
-search_day = 27
+search_day = 30
 search_month = 12
 search_year = 2000
 
 # Finished at here
-search_day_finish = 5
+search_day_finish = 2
 search_month_finish = 1
 search_year_finish = 2001
 
@@ -132,6 +135,9 @@ while is_search_finished == False:
     }
     listOfBirths.append(birth)
 
-print(listOfBirths)
-
-
+print("\033[96mProcess has been completed. Name it to save the JSON file")
+userInput = input()
+dirname = os.path.dirname(__file__)
+filename = os.path.join(dirname, f'list_of_births/{userInput}.json')
+with open(filename, "w+") as f:
+    json.dump(listOfBirths, f)
