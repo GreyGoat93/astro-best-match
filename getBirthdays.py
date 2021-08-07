@@ -139,5 +139,20 @@ print("\033[96mProcess has been completed. Name it to save the JSON file")
 userInput = input()
 dirname = os.path.dirname(__file__)
 filename = os.path.join(dirname, f'list_of_births/{userInput}.json')
+
+allTheData = {
+    "name": userInput,
+    "birth_day": our_day,
+    "birth_month": our_month,
+    "birth_year": our_year,
+    "birth_hour": our_hour,
+    "birth_minute": our_minute,
+    "birth_lat_hour": lat_hour,
+    "birth_lat_minute": lat_minute,
+    "birth_lon_hour": lon_hour,
+    "birth_lon_minute": lon_minute,
+    "listOfBirths": listOfBirths,
+}
+
 with open(filename, "w+") as f:
-    json.dump(listOfBirths, f)
+    json.dump(allTheData, f)
