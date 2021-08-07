@@ -1,32 +1,51 @@
+from genericpath import isfile
 import json, os
 from selenium import webdriver
+
+# List Of Births
+allTheData = {
+    "name": None,
+    "birth_day": 31,
+    "birth_month": 12,
+    "birth_year": 2001,
+    "birth_hour": 23,
+    "birth_minute": 52,
+    "birth_lat_hour": 41,
+    "birth_lat_minute": 1,
+    "birth_lon_hour": 28,
+    "birth_lon_minute": 57,
+    "listOfBirths": [],
+}
+
+print("\033[96mName it to save the JSON file or if you have uncompleted file enter its name without .json!")
+userInput = input()
+dirname = os.path.dirname(__file__)
+filename = os.path.join(dirname, f'list_of_births/{userInput}.json')
+
+if (os.path.isfile(filename)):
+    print("This file exists.")
+    with open(filename) as f:
+        data = json.load(f)
+        allTheData["listOfBirths"] = data["listOfBirths"]
+else:
+    print("Creating new file.")
+allTheData["name"] = data["name"]
+
+
 PATH = "C:\Program Files\chromedriver.exe"
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(PATH, options=options)
 
-# Location of birth
-lat_hour = 41
-lat_minute = 1
-lon_hour =  28
-lon_minute = 57
-
-# Our birth time
-our_day = 31
-our_month = 12
-our_year = 2001
-our_hour = 23
-our_minute = 52
-
 # Starts from here
-search_day = 30
-search_month = 12
-search_year = 2000
+search_day = 1
+search_month = 1
+search_year = 1990
 
 # Finished at here
-search_day_finish = 2
-search_month_finish = 1
-search_year_finish = 2001
+search_day_finish = 31
+search_month_finish = 12
+search_year_finish = 2008
 
 # Days of months. // February is set 28 due to my laziness lol
 month_days = {
@@ -49,7 +68,7 @@ is_search_finished = False
 
 # "Creating link by date" abstraction
 def linkize(day, month, year):
-    return f"https://horoscopes.astro-seek.com/calculate-love-compatibility/?send_calculation=1&muz_narozeni_den={our_day}&muz_narozeni_mesic={our_month}&muz_narozeni_rok={our_year}&muz_narozeni_hodina={our_hour}&muz_narozeni_minuta={our_minute}&muz_narozeni_city=&muz_narozeni_mesto_hidden=&muz_narozeni_stat_hidden=&muz_narozeni_podstat_kratky_hidden=&muz_narozeni_podstat_hidden=&muz_narozeni_input_hidden=&muz_narozeni_podstat2_kratky_hidden=&muz_narozeni_podstat3_kratky_hidden=&muz_narozeni_sirka_stupne={lat_hour}&muz_narozeni_sirka_minuty={lat_minute}&muz_narozeni_sirka_smer=0&muz_narozeni_delka_stupne={lon_hour}&muz_narozeni_delka_minuty={lon_minute}&muz_narozeni_delka_smer=0&muz_narozeni_timezone_form=auto&muz_narozeni_timezone_dst_form=auto&send_calculation=1&zena_narozeni_den=${day}&zena_narozeni_mesic=${month}&zena_narozeni_rok=${year}&zena_narozeni_hodina=00&zena_narozeni_minuta=00&zena_narozeni_no_cas=on&zena_narozeni_city=&zena_narozeni_mesto_hidden=&zena_narozeni_stat_hidden=XX&zena_narozeni_podstat_kratky_hidden=&zena_narozeni_podstat_hidden=&zena_narozeni_input_hidden=&zena_narozeni_podstat2_kratky_hidden=&zena_narozeni_podstat3_kratky_hidden=&zena_narozeni_sirka_stupne=${lat_hour}&zena_narozeni_sirka_minuty=${lat_minute}&zena_narozeni_sirka_smer=0&zena_narozeni_delka_stupne=${lon_hour}&zena_narozeni_delka_minuty=${lon_minute}&zena_narozeni_delka_smer=0&zena_narozeni_timezone_form=auto&zena_narozeni_timezone_dst_form=auto&switch_interpretations=3&house_system=placidus&hid_fortune=1&hid_fortune_check=on&hid_vertex=1&hid_vertex_check=on&hid_chiron=1&hid_chiron_check=on&hid_lilith=1&hid_lilith_check=on&hid_uzel=1&hid_uzel_check=on&uhel_orbis=&hide_aspects=0#tabs_redraw"
+    return f"https://horoscopes.astro-seek.com/calculate-love-compatibility/?send_calculation=1&muz_narozeni_den={allTheData['birth_day']}&muz_narozeni_mesic={allTheData['birth_month']}&muz_narozeni_rok={allTheData['birth_year']}&muz_narozeni_hodina={allTheData['birth_hour']}&muz_narozeni_minuta={allTheData['birth_minute']}&muz_narozeni_city=&muz_narozeni_mesto_hidden=&muz_narozeni_stat_hidden=&muz_narozeni_podstat_kratky_hidden=&muz_narozeni_podstat_hidden=&muz_narozeni_input_hidden=&muz_narozeni_podstat2_kratky_hidden=&muz_narozeni_podstat3_kratky_hidden=&muz_narozeni_sirka_stupne={allTheData['birth_lat_hour']}&muz_narozeni_sirka_minuty={allTheData['birth_lat_minute']}&muz_narozeni_sirka_smer=0&muz_narozeni_delka_stupne={allTheData['birth_lon_hour']}&muz_narozeni_delka_minuty={allTheData['birth_lon_minute']}&muz_narozeni_delka_smer=0&muz_narozeni_timezone_form=auto&muz_narozeni_timezone_dst_form=auto&send_calculation=1&zena_narozeni_den=${day}&zena_narozeni_mesic=${month}&zena_narozeni_rok=${year}&zena_narozeni_hodina=00&zena_narozeni_minuta=00&zena_narozeni_no_cas=on&zena_narozeni_city=&zena_narozeni_mesto_hidden=&zena_narozeni_stat_hidden=XX&zena_narozeni_podstat_kratky_hidden=&zena_narozeni_podstat_hidden=&zena_narozeni_input_hidden=&zena_narozeni_podstat2_kratky_hidden=&zena_narozeni_podstat3_kratky_hidden=&zena_narozeni_sirka_stupne=${allTheData['birth_lat_hour']}&zena_narozeni_sirka_minuty=${allTheData['birth_lat_minute']}&zena_narozeni_sirka_smer=0&zena_narozeni_delka_stupne=${allTheData['birth_lon_hour']}&zena_narozeni_delka_minuty=${allTheData['lon_minute']}&zena_narozeni_delka_smer=0&zena_narozeni_timezone_form=auto&zena_narozeni_timezone_dst_form=auto&switch_interpretations=3&house_system=placidus&hid_fortune=1&hid_fortune_check=on&hid_vertex=1&hid_vertex_check=on&hid_chiron=1&hid_chiron_check=on&hid_lilith=1&hid_lilith_check=on&hid_uzel=1&hid_uzel_check=on&uhel_orbis=&hide_aspects=0#tabs_redraw"
 
 # Move on to next day
 def nextDay():
@@ -102,57 +121,44 @@ def getAspectText(aspect, exact):
     text = driver.find_elements_by_css_selector(f"img[alt='{aspectKey}'].smajlik")[whichElement].find_element_by_xpath('..').get_attribute("innerText")
     return text
 
-# List Of Births
-listOfBirths = []
-
 # Loops through dates
 while is_search_finished == False:
-    driver.get(linkize(search_day, search_month, search_year))
-    nextDay()
-    is_search_finished = checkIfFinished()
-    birth = {
-        "day": search_day,
-        "month": search_month,
-        "year": search_year,
-        "exact": {
-            "loving": findAspectCount(getAspectText("Loving", True)),
-            "key": findAspectCount(getAspectText("Key", True)),
-            "passion": findAspectCount(getAspectText("Passion", True)),
-            "emotional_pain": findAspectCount(getAspectText("Emotional Pain", True)),
-            "easy": findAspectCount(getAspectText("Easy", True)),
-            "conflict": findAspectCount(getAspectText("Conflict", True)),
-            "combination": findAspectCount(getAspectText("Combination", True)),
-        },
-        "not_exact": {
-            "loving": findAspectCount(getAspectText("Loving", False)),
-            "key": findAspectCount(getAspectText("Key", False)),
-            "passion": findAspectCount(getAspectText("Passion", False)),
-            "emotional_pain": findAspectCount(getAspectText("Emotional Pain", False)),
-            "easy": findAspectCount(getAspectText("Easy", False)),
-            "conflict": findAspectCount(getAspectText("Conflict", False)),
-            "combination": findAspectCount(getAspectText("Combination", False)),
-        }
-    }
-    listOfBirths.append(birth)
-
-print("\033[96mProcess has been completed. Name it to save the JSON file")
-userInput = input()
-dirname = os.path.dirname(__file__)
-filename = os.path.join(dirname, f'list_of_births/{userInput}.json')
-
-allTheData = {
-    "name": userInput,
-    "birth_day": our_day,
-    "birth_month": our_month,
-    "birth_year": our_year,
-    "birth_hour": our_hour,
-    "birth_minute": our_minute,
-    "birth_lat_hour": lat_hour,
-    "birth_lat_minute": lat_minute,
-    "birth_lon_hour": lon_hour,
-    "birth_lon_minute": lon_minute,
-    "listOfBirths": listOfBirths,
-}
+    try:
+        driver.get(linkize(search_day, search_month, search_year))
+        is_search_finished = checkIfFinished()
+        if():
+            print("soon")
+        elif (len(driver.find_elements_by_css_selector(f"img[alt='Loving'].smajlik")) != 0):
+            birth = {
+                "day": search_day,
+                "month": search_month,
+                "year": search_year,
+                "exact": {
+                    "loving": findAspectCount(getAspectText("Loving", True)),
+                    "key": findAspectCount(getAspectText("Key", True)),
+                    "passion": findAspectCount(getAspectText("Passion", True)),
+                    "emotional_pain": findAspectCount(getAspectText("Emotional Pain", True)),
+                    "easy": findAspectCount(getAspectText("Easy", True)),
+                    "conflict": findAspectCount(getAspectText("Conflict", True)),
+                    "combination": findAspectCount(getAspectText("Combination", True)),
+                },
+                "not_exact": {
+                    "loving": findAspectCount(getAspectText("Loving", False)),
+                    "key": findAspectCount(getAspectText("Key", False)),
+                    "passion": findAspectCount(getAspectText("Passion", False)),
+                    "emotional_pain": findAspectCount(getAspectText("Emotional Pain", False)),
+                    "easy": findAspectCount(getAspectText("Easy", False)),
+                    "conflict": findAspectCount(getAspectText("Conflict", False)),
+                    "combination": findAspectCount(getAspectText("Combination", False)),
+                }
+            }
+            allTheData['listOfBirths'].append(birth)
+            nextDay()
+        else:
+            driver.get(linkize(search_day, search_month, search_year))
+    except:
+        print("Error! Your json is started to be saved! You can continue later")
+        break
 
 with open(filename, "w+") as f:
     json.dump(allTheData, f)
