@@ -27,10 +27,23 @@ let filter = function(){
             .sort((a,b) => a.year - b.year)
         break;
         case "good":
+            exactized
+            .sort((a,b) => b.key - a.key)
+            .sort((a,b) => b.passion - a.passion)
+            .sort((a,b) => b.loving - a.loving)
+            .sort((a,b) => b.good - a.good)
         break;
         case "conflict":
+            exactized
+            .sort((a,b) => b.conflict - a.conflict)
+            .sort((a,b) => b.emotional_pain - a.emotional_pain)
         break;
         case "loving":
+            exactized
+            .sort((a,b) => b.good - a.good)
+            .sort((a,b) => b.key - a.key)
+            .sort((a,b) => b.passion - a.passion)
+            .sort((a,b) => b.loving - a.loving)
         break;
         case "key":
         break;
