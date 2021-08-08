@@ -110,9 +110,12 @@ let changeNameOfPerson = function(name){
 }
 
 let sortByEventHandler = function(e){
+    console.log("start");
     FILTERS.sortBy = e.target.value;
     let results = filter();
+    console.log("taken");
     writeEveryBirthDays(results);
+    console.log("finish");
 }
 
 let showExactEventHandler = function(e){

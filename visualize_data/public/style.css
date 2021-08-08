@@ -11,7 +11,7 @@ body {
 }
 
 header {
-    height: 72px;
+    height: 84px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,6 +21,13 @@ header {
 
 main {
     padding: 2rem;
+}
+
+h1 {
+    background: #736;
+    color: #fff;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
 }
 
 input,

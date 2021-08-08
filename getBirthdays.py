@@ -29,8 +29,7 @@ if (os.path.isfile(filename)):
         allTheData["listOfBirths"] = data["listOfBirths"]
 else:
     print("Creating new file.")
-allTheData["name"] = data["name"]
-
+allTheData["name"] = userInput
 
 PATH = "C:\Program Files\chromedriver.exe"
 options = webdriver.ChromeOptions()
@@ -68,7 +67,7 @@ is_search_finished = False
 
 # "Creating link by date" abstraction
 def linkize(day, month, year):
-    return f"https://horoscopes.astro-seek.com/calculate-love-compatibility/?send_calculation=1&muz_narozeni_den={allTheData['birth_day']}&muz_narozeni_mesic={allTheData['birth_month']}&muz_narozeni_rok={allTheData['birth_year']}&muz_narozeni_hodina={allTheData['birth_hour']}&muz_narozeni_minuta={allTheData['birth_minute']}&muz_narozeni_city=&muz_narozeni_mesto_hidden=&muz_narozeni_stat_hidden=&muz_narozeni_podstat_kratky_hidden=&muz_narozeni_podstat_hidden=&muz_narozeni_input_hidden=&muz_narozeni_podstat2_kratky_hidden=&muz_narozeni_podstat3_kratky_hidden=&muz_narozeni_sirka_stupne={allTheData['birth_lat_hour']}&muz_narozeni_sirka_minuty={allTheData['birth_lat_minute']}&muz_narozeni_sirka_smer=0&muz_narozeni_delka_stupne={allTheData['birth_lon_hour']}&muz_narozeni_delka_minuty={allTheData['birth_lon_minute']}&muz_narozeni_delka_smer=0&muz_narozeni_timezone_form=auto&muz_narozeni_timezone_dst_form=auto&send_calculation=1&zena_narozeni_den=${day}&zena_narozeni_mesic=${month}&zena_narozeni_rok=${year}&zena_narozeni_hodina=00&zena_narozeni_minuta=00&zena_narozeni_no_cas=on&zena_narozeni_city=&zena_narozeni_mesto_hidden=&zena_narozeni_stat_hidden=XX&zena_narozeni_podstat_kratky_hidden=&zena_narozeni_podstat_hidden=&zena_narozeni_input_hidden=&zena_narozeni_podstat2_kratky_hidden=&zena_narozeni_podstat3_kratky_hidden=&zena_narozeni_sirka_stupne=${allTheData['birth_lat_hour']}&zena_narozeni_sirka_minuty=${allTheData['birth_lat_minute']}&zena_narozeni_sirka_smer=0&zena_narozeni_delka_stupne=${allTheData['birth_lon_hour']}&zena_narozeni_delka_minuty=${allTheData['lon_minute']}&zena_narozeni_delka_smer=0&zena_narozeni_timezone_form=auto&zena_narozeni_timezone_dst_form=auto&switch_interpretations=3&house_system=placidus&hid_fortune=1&hid_fortune_check=on&hid_vertex=1&hid_vertex_check=on&hid_chiron=1&hid_chiron_check=on&hid_lilith=1&hid_lilith_check=on&hid_uzel=1&hid_uzel_check=on&uhel_orbis=&hide_aspects=0#tabs_redraw"
+    return f"https://horoscopes.astro-seek.com/calculate-love-compatibility/?send_calculation=1&muz_narozeni_den={allTheData['birth_day']}&muz_narozeni_mesic={allTheData['birth_month']}&muz_narozeni_rok={allTheData['birth_year']}&muz_narozeni_hodina={allTheData['birth_hour']}&muz_narozeni_minuta={allTheData['birth_minute']}&muz_narozeni_city=&muz_narozeni_mesto_hidden=&muz_narozeni_stat_hidden=&muz_narozeni_podstat_kratky_hidden=&muz_narozeni_podstat_hidden=&muz_narozeni_input_hidden=&muz_narozeni_podstat2_kratky_hidden=&muz_narozeni_podstat3_kratky_hidden=&muz_narozeni_sirka_stupne={allTheData['birth_lat_hour']}&muz_narozeni_sirka_minuty={allTheData['birth_lat_minute']}&muz_narozeni_sirka_smer=0&muz_narozeni_delka_stupne={allTheData['birth_lon_hour']}&muz_narozeni_delka_minuty={allTheData['birth_lon_minute']}&muz_narozeni_delka_smer=0&muz_narozeni_timezone_form=auto&muz_narozeni_timezone_dst_form=auto&send_calculation=1&zena_narozeni_den=${day}&zena_narozeni_mesic=${month}&zena_narozeni_rok=${year}&zena_narozeni_hodina=00&zena_narozeni_minuta=00&zena_narozeni_no_cas=on&zena_narozeni_city=&zena_narozeni_mesto_hidden=&zena_narozeni_stat_hidden=XX&zena_narozeni_podstat_kratky_hidden=&zena_narozeni_podstat_hidden=&zena_narozeni_input_hidden=&zena_narozeni_podstat2_kratky_hidden=&zena_narozeni_podstat3_kratky_hidden=&zena_narozeni_sirka_stupne=${allTheData['birth_lat_hour']}&zena_narozeni_sirka_minuty=${allTheData['birth_lat_minute']}&zena_narozeni_sirka_smer=0&zena_narozeni_delka_stupne=${allTheData['birth_lon_hour']}&zena_narozeni_delka_minuty=${allTheData['birth_lon_minute']}&zena_narozeni_delka_smer=0&zena_narozeni_timezone_form=auto&zena_narozeni_timezone_dst_form=auto&switch_interpretations=3&house_system=placidus&hid_fortune=1&hid_fortune_check=on&hid_vertex=1&hid_vertex_check=on&hid_chiron=1&hid_chiron_check=on&hid_lilith=1&hid_lilith_check=on&hid_uzel=1&hid_uzel_check=on&uhel_orbis=&hide_aspects=0#tabs_redraw"
 
 # Move on to next day
 def nextDay():
@@ -124,11 +123,11 @@ def getAspectText(aspect, exact):
 # Loops through dates
 while is_search_finished == False:
     try:
+        if(any(x['day'] == search_day and x['month'] == search_month and x['year'] == search_year for x in allTheData['listOfBirths'])):
+            nextDay()
+            continue
         driver.get(linkize(search_day, search_month, search_year))
-        is_search_finished = checkIfFinished()
-        if():
-            print("soon")
-        elif (len(driver.find_elements_by_css_selector(f"img[alt='Loving'].smajlik")) != 0):
+        if(len(driver.find_elements_by_css_selector(f"img[alt='Loving'].smajlik")) != 0):
             birth = {
                 "day": search_day,
                 "month": search_month,
@@ -156,6 +155,7 @@ while is_search_finished == False:
             nextDay()
         else:
             driver.get(linkize(search_day, search_month, search_year))
+        is_search_finished = checkIfFinished()
     except:
         print("Error! Your json is started to be saved! You can continue later")
         break

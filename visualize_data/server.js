@@ -7,7 +7,7 @@ app.set('view-engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-    const rawJson = fs.readFileSync('../list_of_births/ben.json');
+    const rawJson = fs.readFileSync('../list_of_births/taha.json');
     res.render('index.ejs', {person: rawJson});
 })
 
