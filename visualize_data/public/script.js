@@ -52,9 +52,9 @@ let filter = function(){
         case "key":
             exactized
             .sort((a,b) => b.easy - a.easy)
-            .sort((a,b) => b.key - a.key)
             .sort((a,b) => b.loving - a.loving)
             .sort((a,b) => b.passion - a.passion)
+            .sort((a,b) => b.key - a.key)
         break;
         case "passion":
             exactized
@@ -65,8 +65,8 @@ let filter = function(){
         break;
         case "emotional_pain":
             exactized
-            .sort((a,b) => b.emotional_pain - a.emotional_pain)
             .sort((a,b) => b.conflict - a.conflict)
+            .sort((a,b) => b.emotional_pain - a.emotional_pain)
         break;
         case "lovely_three":
             exactized
@@ -83,6 +83,7 @@ let filter = function(){
             .sort((a,b) => (b.emotional_pain + b.conflict) - (a.emotional_pain + a.conflict))
         break;
     }
+    exactized.length = 250;
     console.log(exactized);
     return exactized;
 }
@@ -129,15 +130,16 @@ htmlShowExact.addEventListener('input', showExactEventHandler)
 
 changeNameOfPerson(parsedData.name);
 
-let initValues = parsedData.listOfBirths
+let initValues = [...parsedData.listOfBirths
 .map(birth => ({
     day: birth.day,
     month: birth.month,
     year: birth.year,
     ...birth["not_exact"],
-}))
+}))]
 .sort((a,b) => a.day - b.day)
 .sort((a,b) => a.month - b.month)
 .sort((a,b) => a.year - b.year)
+initValues.length = 250;
 
 writeEveryBirthDays(initValues);
