@@ -39,9 +39,14 @@ let filter = function(){
         break;
         case "conflict":
             exactized
+            .sort((a,b) => a.conflict - b.conflict)
             .sort((a,b) => b.emotional_pain - a.emotional_pain)
             .sort((a,b) => b.conflict - a.conflict)
         break;
+        case "combination":
+            exactized
+            .sort((a,b) => b.easy - a.easy)
+            .sort((a,b) => b.combination - a.combination)
         case "loving":
             exactized
             .sort((a,b) => b.easy - a.easy)
@@ -106,17 +111,14 @@ let writeEveryBirthDays = function(birthdayArray){
 }
 
 let changeNameOfPerson = function(name){
-    document.title = `${name}'s ideal matches dates of birth`;
+    document.title = `${name}'s ideal matches <3`;
     htmlNameOfPerson.innerText = name;
 }
 
 let sortByEventHandler = function(e){
-    console.log("start");
     FILTERS.sortBy = e.target.value;
     let results = filter();
-    console.log("taken");
     writeEveryBirthDays(results);
-    console.log("finish");
 }
 
 let showExactEventHandler = function(e){
