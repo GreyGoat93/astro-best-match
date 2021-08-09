@@ -5,15 +5,15 @@ from selenium import webdriver
 # List Of Births
 allTheData = {
     "name": None,
-    "birth_day": 31,
-    "birth_month": 12,
+    "birth_day": 17,
+    "birth_month": 2,
     "birth_year": 2001,
-    "birth_hour": 23,
-    "birth_minute": 52,
+    "birth_hour": 3,
+    "birth_minute": 00,
     "birth_lat_hour": 41,
-    "birth_lat_minute": 1,
+    "birth_lat_minute": 00,
     "birth_lon_hour": 28,
-    "birth_lon_minute": 57,
+    "birth_lon_minute": 58,
     "listOfBirths": [],
 }
 
@@ -39,7 +39,7 @@ driver = webdriver.Chrome(PATH, options=options)
 # Starts from here
 search_day = 1
 search_month = 1
-search_year = 1990
+search_year = 1995
 
 # Finished at here
 search_day_finish = 31

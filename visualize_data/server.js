@@ -11,4 +11,4 @@ app.get('/', (req, res) => {
     res.render('index.ejs', {person: rawJson});
 })
 
-app.listen(3000, '192.168.1.22', () => {console.log("listening the app")});
+app.listen(3000, () => {console.log("listening the app")});
