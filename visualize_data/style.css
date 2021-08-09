@@ -37,6 +37,30 @@ select {
     margin-left: 0.8rem;
 }
 
+.btn {
+    color: #fff;
+    font-weight: 900;
+    border-radius: 5px;
+    height: 25px;
+    width: 100px;
+    display: block;
+    transition: background-color 0.6s, border 0.6s;
+}
+
+.button_disabled {
+    border: 1px solid #500;
+    background-color: #633;
+}
+
+.button_enabled {
+    border: 1px solid #393;
+    background-color: #6D6;
+}
+
+.filter_button_container {
+    margin-top: 0.4rem;
+}
+
 .between_dates {
     margin-top: 1rem;
     padding: 0.4rem 0.8rem;

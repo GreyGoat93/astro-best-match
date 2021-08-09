@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Loading...</title>
 </head>
 <body>
@@ -54,6 +53,9 @@
                         <input type="number" min="1" max="12" name="toMonth" id="toMonth" value="12">
                         <input type="number" min="1900" max="2100" name="toYear" id="toYear" value="2100">
                     </div>
+                    <div class="filter_button_container">
+                        <button id="filterButton" class="btn button_disabled" disabled>Filter</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,6 +82,5 @@
     <script>
         let person = '<%- person %>'
     </script> 
-    <script src="script.js"></script>
 </body>
 </html>

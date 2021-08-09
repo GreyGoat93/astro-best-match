@@ -10,6 +10,7 @@ let htmlFromYear = document.getElementById('fromYear')
 let htmlToDay = document.getElementById('toDay')
 let htmlToMonth = document.getElementById('toMonth')
 let htmlToYear = document.getElementById('toYear')
+let htmlFilterButton = document.getElementById('filterButton')
 
 
 const listColumnQueue = ["day", "month", "year", "loving", "key", "passion", "emotional_pain",
@@ -34,6 +35,18 @@ let getSpecificDates = function(births){
         let _date = new Date(birth.year, birth.month-1, birth.day).getTime();
         return _date >= fromDate && _date <= toDate;
     })
+}
+
+let toggleButton = (state) => {
+    if(state){
+        htmlFilterButton.disabled = false;
+        htmlFilterButton.classList.remove("button_disabled");
+        htmlFilterButton.classList.add("button_enabled");
+    } else {
+        htmlFilterButton.disabled = true;
+        htmlFilterButton.classList.remove("button_enabled");
+        htmlFilterButton.classList.add("button_disabled");
+    }
 }
 
 let filter = function(){
@@ -146,18 +159,17 @@ let changeNameOfPerson = function(name){
 }
 
 let sortByEventHandler = function(e){
+    toggleButton(true);
     FILTERS.sortBy = e.target.value;
-    let results = filter();
-    writeEveryBirthDays(results);
 }
 
 let showExactEventHandler = function(e){
+    toggleButton(true);
     FILTERS.showExact = e.target.checked;
-    let results = filter();
-    writeEveryBirthDays(results);
 }
 
 let dateBetweenEventHandler = function(e){
+    toggleButton(true);
     switch(e.target.id){
         case "fromDay":
             FILTERS.fromDay = parseInt(e.target.value)
@@ -178,7 +190,10 @@ let dateBetweenEventHandler = function(e){
             FILTERS.toYear = parseInt(e.target.value)
         break;
     }
-    console.log(FILTERS);
+}
+
+let filterEventHandler = (e) => {
+    toggleButton(false);
     let results = filter();
     writeEveryBirthDays(results);
 }
@@ -191,6 +206,7 @@ htmlFromYear.addEventListener('input', dateBetweenEventHandler)
 htmlToDay.addEventListener('input', dateBetweenEventHandler)
 htmlToMonth.addEventListener('input', dateBetweenEventHandler)
 htmlToYear.addEventListener('input', dateBetweenEventHandler)
+htmlFilterButton.addEventListener('click', filterEventHandler)
 
 changeNameOfPerson(parsedData.name);
 
