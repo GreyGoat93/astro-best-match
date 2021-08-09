@@ -27,6 +27,10 @@ const FILTERS = {
     toYear: 2100,
 }
 
+let lastFilters = {
+    ...FILTERS
+}
+
 let getSpecificDates = function(births){
     const {fromDay, fromMonth, fromYear, toDay, toMonth, toYear} = FILTERS;
     const fromDate = new Date(fromYear, fromMonth-1, fromDay).getTime();
@@ -47,6 +51,18 @@ let toggleButton = (state) => {
         htmlFilterButton.classList.remove("button_enabled");
         htmlFilterButton.classList.add("button_disabled");
     }
+}
+
+let checkFilterChange = () => {
+    console.log(FILTERS);
+    console.log(lastFilters)
+    isChanged = false;
+    for(let prop in lastFilters){
+        if(lastFilters[prop] !== FILTERS[prop]){
+            isChanged = true;
+        }
+    }
+    toggleButton(isChanged)
 }
 
 let filter = function(){
@@ -150,7 +166,6 @@ let writeEveryBirthDays = function(birthdayArray){
         })
         htmlList.appendChild(row);
     })
-
 }
 
 let changeNameOfPerson = function(name){
@@ -159,17 +174,16 @@ let changeNameOfPerson = function(name){
 }
 
 let sortByEventHandler = function(e){
-    toggleButton(true);
     FILTERS.sortBy = e.target.value;
+    checkFilterChange();
 }
 
 let showExactEventHandler = function(e){
-    toggleButton(true);
     FILTERS.showExact = e.target.checked;
+    checkFilterChange();
 }
 
 let dateBetweenEventHandler = function(e){
-    toggleButton(true);
     switch(e.target.id){
         case "fromDay":
             FILTERS.fromDay = parseInt(e.target.value)
@@ -190,9 +204,11 @@ let dateBetweenEventHandler = function(e){
             FILTERS.toYear = parseInt(e.target.value)
         break;
     }
+    checkFilterChange();
 }
 
 let filterEventHandler = (e) => {
+    lastFilters = {...FILTERS};
     toggleButton(false);
     let results = filter();
     writeEveryBirthDays(results);
