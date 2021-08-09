@@ -7,8 +7,8 @@ app.set('view-engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-    const rawJson = fs.readFileSync('../list_of_births/taha.json');
+    const rawJson = fs.readFileSync('../list_of_births/tedili.json');
     res.render('index.ejs', {person: rawJson});
 })
 
-app.listen(3000, () => {console.log("listening the app")});
+app.listen(3000, '192.168.1.22', () => {console.log("listening the app")});

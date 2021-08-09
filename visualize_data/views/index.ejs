@@ -13,26 +13,47 @@
     </header>
     <main>
         <div class="name_and_options">
-            <h2 id="nameOfPerson">Loading...</h2>
-            <div class="options" style="display:flex;">
-                <div class="show_exact">
-                    <label for="showExact">Show Exact: </label>
-                    <input type="checkbox" name="showExact" id="showExact">
+            <div class="name_and_show_exact_with_sort_by">
+                <div class="name_container">
+                    <h2 id="nameOfPerson">Loading...</h2>
                 </div>
-                <div class="sort_by">
-                    <label for="sortBy">Sort By: </label>
-                    <select name="sortBy" id="sortBy">
-                        <option value="date">Date</option>
-                        <option value="easy">Easy</option>
-                        <option value="conflict">Conflict</option>
-                        <option value="combination">Combination</option>
-                        <option value="loving">Loving</option>
-                        <option value="key">Key</option>
-                        <option value="passion">Passion</option>
-                        <option value="emotional_pain">Emotional Pain</option>
-                        <option value="lovely_three">Loving+Passions+Key</option>
-                        <option value="hately_duo">Em.Pain+Conflict</option>
-                    </select>
+                <div class="options_row">
+                    <div class="show_exact">
+                        <label for="showExact">Show Exact: </label>
+                        <input type="checkbox" name="showExact" id="showExact">
+                    </div>
+                    <div class="sort_by">
+                        <label for="sortBy">Sort By: </label>
+                        <select name="sortBy" id="sortBy">
+                            <option value="date">Date</option>
+                            <option value="easy">Easy</option>
+                            <option value="conflict">Conflict</option>
+                            <option value="combination">Combination</option>
+                            <option value="loving">Loving</option>
+                            <option value="key">Key</option>
+                            <option value="passion">Passion</option>
+                            <option value="emotional_pain">Emotional Pain</option>
+                            <option value="lovely_three">Loving + Passion + Key</option>
+                            <option value="hately_duo">Em.Pain + Conflict</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="between_dates">
+                <h3 class="between_dates_header">Specify Date:</h3>
+                <div class="options_row">
+                    <div class="date_input_container">
+                        <label>From: </label>
+                        <input type="number" min="1" max="31" name="fromDay" id="fromDay" value="1">
+                        <input type="number" min="1" max="12" name="fromMonth" id="fromMonth" value="1">
+                        <input type="number" min="1900" max="2100" name="fromYear" id="fromYear" value="1900">
+                    </div>
+                    <div class="date_input_container">
+                        <label>To: </label>
+                        <input type="number" min="1" max="31" name="toDay" id="toDay" value="31">
+                        <input type="number" min="1" max="12" name="toMonth" id="toMonth" value="12">
+                        <input type="number" min="1900" max="2100" name="toYear" id="toYear" value="2100">
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,18 +73,6 @@
                 </div>
                 <div id="list">
                     Loading...
-                    <!-- <div class="list_items">
-                        <div class="list_item">19</div>
-                        <div class="list_item">8</div>
-                        <div class="list_item">2001</div>
-                        <div class="list_item">2x</div>
-                        <div class="list_item">2x</div>
-                        <div class="list_item">1x</div>
-                        <div class="list_item">3x</div>
-                        <div class="list_item">8x</div>
-                        <div class="list_item">8x</div>
-                        <div class="list_item">4x</div>
-                    </div> -->
                 </div>
             </div>
         </div>

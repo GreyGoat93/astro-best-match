@@ -4,6 +4,13 @@ let htmlList = document.getElementById('list');
 let htmlSortBy = document.getElementById('sortBy');
 let htmlShowExact = document.getElementById('showExact');
 let htmlNameOfPerson = document.getElementById('nameOfPerson')
+let htmlFromDay = document.getElementById('fromDay')
+let htmlFromMonth = document.getElementById('fromMonth')
+let htmlFromYear = document.getElementById('fromYear')
+let htmlToDay = document.getElementById('toDay')
+let htmlToMonth = document.getElementById('toMonth')
+let htmlToYear = document.getElementById('toYear')
+
 
 const listColumnQueue = ["day", "month", "year", "loving", "key", "passion", "emotional_pain",
 "easy", "conflict", "combination"];
@@ -11,6 +18,22 @@ const listColumnQueue = ["day", "month", "year", "loving", "key", "passion", "em
 const FILTERS = {
     sortBy: "date",
     showExact: false,
+    fromDay: 1,
+    fromMonth: 1,
+    fromYear: 1900,
+    toDay: 31,
+    toMonth: 12,
+    toYear: 2100,
+}
+
+let getSpecificDates = function(births){
+    const {fromDay, fromMonth, fromYear, toDay, toMonth, toYear} = FILTERS;
+    const fromDate = new Date(fromYear, fromMonth-1, fromDay).getTime();
+    const toDate = new Date(toYear, toMonth-1, toDay).getTime();
+    return births.filter(birth => {
+        let _date = new Date(birth.year, birth.month-1, birth.day).getTime();
+        return _date >= fromDate && _date <= toDate;
+    })
 }
 
 let filter = function(){
@@ -23,6 +46,7 @@ let filter = function(){
         year: birth.year,
         ...birth[showExactAttribute],
     }));
+    exactized = getSpecificDates(exactized);
     switch(FILTERS.sortBy){
         case "date":
             exactized
@@ -32,6 +56,7 @@ let filter = function(){
         break;
         case "easy":
             exactized
+            .sort((a,b) => a.conflict - b.conflict)
             .sort((a,b) => b.key - a.key)
             .sort((a,b) => b.passion - a.passion)
             .sort((a,b) => b.loving - a.loving)
@@ -45,10 +70,12 @@ let filter = function(){
         break;
         case "combination":
             exactized
+            .sort((a,b) => a.conflict - b.conflict)
             .sort((a,b) => b.easy - a.easy)
             .sort((a,b) => b.combination - a.combination)
         case "loving":
             exactized
+            .sort((a,b) => a.conflict - b.conflict)
             .sort((a,b) => b.easy - a.easy)
             .sort((a,b) => b.key - a.key)
             .sort((a,b) => b.passion - a.passion)
@@ -56,6 +83,7 @@ let filter = function(){
         break;
         case "key":
             exactized
+            .sort((a,b) => a.conflict - b.conflict)
             .sort((a,b) => b.easy - a.easy)
             .sort((a,b) => b.loving - a.loving)
             .sort((a,b) => b.passion - a.passion)
@@ -63,6 +91,7 @@ let filter = function(){
         break;
         case "passion":
             exactized
+            .sort((a,b) => a.conflict - b.conflict)
             .sort((a,b) => b.easy - a.easy)
             .sort((a,b) => b.key - a.key)
             .sort((a,b) => b.loving - a.loving)
@@ -75,10 +104,12 @@ let filter = function(){
         break;
         case "lovely_three":
             exactized
-            .sort((a,b) => b.easy - a.easy)
+            .sort((a,b) => a.conflict - b.conflict)
             .sort((a,b) => b.key - a.key)
             .sort((a,b) => b.passion - a.passion)
             .sort((a,b) => b.loving - a.loving)
+            .sort((a,b) => a.conflict - b.conflict)
+            .sort((a,b) => b.easy - a.easy)
             .sort((a,b) => (b.loving + b.key + b.passion) - (a.loving + a.key + a.passion))
         break;
         case "hately_duo":
@@ -89,7 +120,6 @@ let filter = function(){
         break;
     }
     exactized.length = 250;
-    console.log(exactized);
     return exactized;
 }
 
@@ -127,8 +157,40 @@ let showExactEventHandler = function(e){
     writeEveryBirthDays(results);
 }
 
+let dateBetweenEventHandler = function(e){
+    switch(e.target.id){
+        case "fromDay":
+            FILTERS.fromDay = parseInt(e.target.value)
+        break;
+        case "fromMonth":
+            FILTERS.fromMonth = parseInt(e.target.value)
+        break;
+        case "fromYear":
+            FILTERS.fromYear = parseInt(e.target.value)
+        break;
+        case "toDay":
+            FILTERS.toDay = parseInt(e.target.value)
+        break;
+        case "toMonth":
+            FILTERS.toMonth = parseInt(e.target.value)
+        break;
+        case "toYear":
+            FILTERS.toYear = parseInt(e.target.value)
+        break;
+    }
+    console.log(FILTERS);
+    let results = filter();
+    writeEveryBirthDays(results);
+}
+
 htmlSortBy.addEventListener('input', sortByEventHandler)
 htmlShowExact.addEventListener('input', showExactEventHandler)
+htmlFromDay.addEventListener('input', dateBetweenEventHandler)
+htmlFromMonth.addEventListener('input', dateBetweenEventHandler)
+htmlFromYear.addEventListener('input', dateBetweenEventHandler)
+htmlToDay.addEventListener('input', dateBetweenEventHandler)
+htmlToMonth.addEventListener('input', dateBetweenEventHandler)
+htmlToYear.addEventListener('input', dateBetweenEventHandler)
 
 changeNameOfPerson(parsedData.name);
 

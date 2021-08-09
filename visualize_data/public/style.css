@@ -20,12 +20,13 @@ header {
 }
 
 main {
-    padding: 2rem;
+    padding: 0rem 2rem 2rem 2rem;
 }
 
 h1 {
     background: #736;
     color: #fff;
+    font-size: 1.2rem;
     padding: 0.3rem 1rem;
     border-radius: 20px;
 }
@@ -36,14 +37,48 @@ select {
     margin-left: 0.8rem;
 }
 
-.name_and_options {
+.between_dates {
+    margin-top: 1rem;
+    padding: 0.4rem 0.8rem;
+    background-color: #222;
+    border-radius: 10px;
+}
+
+.between_dates_header {
+    margin-bottom: 0.8rem;
+}
+
+.between_dates .options_row{
+    flex-direction: column;
+}
+
+.date_input_container {
     display: flex;
-    justify-content: space-between;
+    margin-bottom: 0.2rem;
+}
+
+.date_input_container label {
+    width: 48px;
+    display: block;
+}
+
+.name_container {
+    display: flex;
+    justify-content: center;
+    background-color: #222;
+    padding: 0.3rem 0;
+    border-radius: 10px;
+    text-align: center;
     margin: 1rem 0;
 }
 
-.options {
+.name_and_options {
+    margin: 1rem 0;
+}
+
+.options_row {
     display: flex;
+    justify-content: space-between;
 }
 
 .show_exact,
@@ -53,7 +88,6 @@ select {
     background-color: #222;
     border-radius: 10px;
     padding: 0.3rem 0.8rem;
-    margin-right: 2rem;
 }
 
 .show_exact input {
@@ -65,7 +99,7 @@ select {
 .list_items {
     display: flex;
     justify-content: space-between;
-    margin-top: 0.2rem;
+    margin-top: 0.5rem;
 }
 
 .list_titles {
@@ -84,7 +118,60 @@ select {
 .list_item {
     width: 100%;
     height: 40px;
+    font-size: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+}
+
+.list_items:hover {
+    background-color: #8dd;
+    color: #000;
+    font-weight: 900;
+}
+
+.list_item:hover {
+    color: #fff;
+    background-color: #166;
+}
+
+@media (min-width: 596px){
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 768px){
+    main {
+        padding: 2rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .name_and_options {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .show_exact {
+        margin-right: 1rem;
+    }
+    
+    .name_and_options {
+        margin: 1rem 0;
+    }
+
+    .name_and_show_exact_with_sort_by {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .list_title,
+    .list_item {
+        font-size: 16px;
+    }
 }
