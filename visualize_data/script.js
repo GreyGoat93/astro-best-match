@@ -12,9 +12,14 @@ let htmlToMonth = document.getElementById('toMonth')
 let htmlToYear = document.getElementById('toYear')
 let htmlFilterButton = document.getElementById('filterButton')
 
+let chunkSize = 500;
 
 const listColumnQueue = ["day", "month", "year", "loving", "key", "passion", "emotional_pain",
 "easy", "conflict", "combination"];
+
+if( /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    chunkSize = 100;
+}
 
 const FILTERS = {
     sortBy: "date",
@@ -148,7 +153,7 @@ let filter = function(){
             .sort((a,b) => (b.emotional_pain + b.conflict) - (a.emotional_pain + a.conflict))
         break;
     }
-    exactized.length = 250;
+    exactized.length = chunkSize;
     return exactized;
 }
 
@@ -236,6 +241,6 @@ let initValues = [...parsedData.listOfBirths
 .sort((a,b) => a.day - b.day)
 .sort((a,b) => a.month - b.month)
 .sort((a,b) => a.year - b.year)
-initValues.length = 250;
+initValues.length = chunkSize;
 
 writeEveryBirthDays(initValues);
